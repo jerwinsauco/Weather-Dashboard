@@ -19,12 +19,14 @@
 // Create a function to get the UV index
 // Create a function whether uv index is low, moderate, high, or extreme
 
-const weatherAPI = "https://api.openweathermap.org/data/2.5/weather?q=";
-const apiKey = "&appid=114ffacdd50b22d216de5af070ce37c2";
-const units = "&units=metric";
+// const weatherAPI = "https://api.openweathermap.org/data/2.5/weather?q=";
+// const apiKey = "&appid=114ffacdd50b22d216de5af070ce37c2";
+// const units = "&units=metric";
+
+
 const citySearch = document.getElementById("citySearch");
-const search = document.getElementById("searchButton");
-const clear = document.getElementById("clearButton");
+const searchButton = document.getElementById("searchButton");
+const clearButton = document.getElementById("clearButton");
 const selectedCity = document.getElementById("selectedCity");
 
 const date = document.getElementById("date");
@@ -43,3 +45,23 @@ let searchHistory = JSON.parse(localStorage.getItem("search"))
 // API Key
 const APIKey = "114ffacdd50b22d216de5af070ce37c2";
 
+function getWeather(city) {
+    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}&units=metric`;
+    fetch(url)
+        .then(response => response.json())
+        .then(data => {
+            console.log(data);
+            selectedCity.innerHTML = data.name;
+            date.innerHTML = moment().format("dddd, MMMM Do YYYY");
+            time.innerHTML = moment().format("h:mm a");
+            temperature.innerHTML = `${data.main.temp}&deg;C`;
+            humidity.innerHTML = `${data.main.humidity}%`;
+            windSpeed.innerHTML = `${data.wind.speed} km/h`;
+            uvIndex.innerHTML = `${data.main.temp}&deg;C`;
+            getUVIndex(data.coord.lat, data.coord.lon);
+            getWeatherIcon(data.weather[0].id);
+            getWeatherDescription(data.weather[0].id);
+            getWeatherForecast(data.name);
+        })
+        .catch(err => console.log(err));    
+}
