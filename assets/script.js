@@ -46,19 +46,18 @@ const APIKey = "114ffacdd50b22d216de5af070ce37c2";
 
 // Search Button Function
 searchButton.addEventListener("click", function(event) {
+    // prevent page from refreshing
     event.preventDefault();
-    // get the value of the city search input
+    // get the value of the citySearch input
     const city = citySearch.value;
     // get the weather of the city
     getWeather(city);
     // add the city to the search history
     addToHistory(city);
-    // clear the city search input
+    // clear search content
     citySearch.value = "";
 
 });
-
-
 
 // Clear History Function
 clearButton.addEventListener("click", function(event) {
@@ -74,6 +73,8 @@ function renderserachHistory() {
 
 function getWeather(city) {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}&units=metric`;
+
+    // fetch the data from the url
     fetch(url)
         .then(response => response.json())
         .then(data => {
