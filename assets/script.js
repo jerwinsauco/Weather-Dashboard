@@ -22,19 +22,24 @@
 const weatherAPI = "https://api.openweathermap.org/data/2.5/weather?q=";
 const apiKey = "&appid=114ffacdd50b22d216de5af070ce37c2";
 const units = "&units=metric";
-const city = document.getElementById("city");
+const citySearch = document.getElementById("citySearch");
+const search = document.getElementById("searchButton");
+const clear = document.getElementById("clearButton");
+const selectedCity = document.getElementById("selectedCity");
+
 const date = document.getElementById("date");
 const time = document.getElementById("time");
-const location = document.getElementById("location");
-const weatherIcon = document.getElementById("weather-icon");
-const weatherDescription = document.getElementById("weather-description");
+
 const temperature = document.getElementById("temperature");
 const humidity = document.getElementById("humidity");
 const windSpeed = document.getElementById("wind-speed");
-const windDirection = document.getElementById("wind-direction");
-const visibility = document.getElementById("visibility");
-const sunrise = document.getElementById("sunrise");
-const sunset = document.getElementById("sunset");
 const uvIndex = document.getElementById("uv-index");
-const uvIndexColor = document.getElementById("uv-index-color");
+
+const historyEl = document.getElementById("history");
+var fivedayEl = document.getElementById("fiveday-header");
+var todayweatherEl = document.getElementById("today-weather");
+let searchHistory = JSON.parse(localStorage.getItem("search")) 
+
+// API Key
+const APIKey = "114ffacdd50b22d216de5af070ce37c2";
 
