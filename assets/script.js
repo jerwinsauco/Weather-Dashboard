@@ -38,34 +38,39 @@ const uvIndex = document.getElementById("uv-index");
 const historyEl = document.getElementById("history");
 var fivedayEl = document.getElementById("fiveday-header");
 var todayweatherEl = document.getElementById("today-weather");
-let searchHistory = JSON.parse(localStorage.getItem("search")) 
+let searchHistory = JSON.parse(localStorage.getItem("search")) || [];
+
 
 // API Key
 const APIKey = "114ffacdd50b22d216de5af070ce37c2";
 
-// add event listener to search button
+// Search Button Function
 searchButton.addEventListener("click", function(event) {
     event.preventDefault();
     // get the value of the city search input
     const city = citySearch.value;
     // get the weather of the city
-    // getWeather function written below
     getWeather(city);
     // add the city to the search history
-    // addToHistory function written below
     addToHistory(city);
     // clear the city search input
-    
     citySearch.value = "";
+
 });
 
-// clear the city search input history
+
+
+// Clear History Function
 clearButton.addEventListener("click", function(event) {
     event.preventDefault();
     localStorage.clear();
     searchHistory = [];
     renderserachHistory();
 });
+
+function renderserachHistory() {
+
+}
 
 function getWeather(city) {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}&units=metric`;
