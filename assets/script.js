@@ -14,8 +14,6 @@
 // Create a function to get the wind speed
 // Create a function to get the wind direction
 // Create a function to get the visibility
-// Create a function to get the sunrise
-// Create a function to get the sunset
 // Create a function to get the UV index
 // Create a function whether uv index is low, moderate, high, or extreme
 
@@ -45,6 +43,30 @@ let searchHistory = JSON.parse(localStorage.getItem("search"))
 // API Key
 const APIKey = "114ffacdd50b22d216de5af070ce37c2";
 
+// add event listener to search button
+searchButton.addEventListener("click", function(event) {
+    event.preventDefault();
+    // get the value of the city search input
+    const city = citySearch.value;
+    // get the weather of the city
+    // getWeather function written below
+    getWeather(city);
+    // add the city to the search history
+    // addToHistory function written below
+    addToHistory(city);
+    // clear the city search input
+    
+    citySearch.value = "";
+});
+
+// clear the city search input history
+clearButton.addEventListener("click", function(event) {
+    event.preventDefault();
+    localStorage.clear();
+    searchHistory = [];
+    renderserachHistory();
+});
+
 function getWeather(city) {
     const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}&units=metric`;
     fetch(url)
@@ -64,4 +86,11 @@ function getWeather(city) {
             getWeatherForecast(data.name);
         })
         .catch(err => console.log(err));    
+
+        // let lat = response.data.coord.lat;
+        // let lon = response.data.coord.lon;
+
+    
 }
+
+getWeather("London");
