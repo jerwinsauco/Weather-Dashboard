@@ -74,24 +74,27 @@ function getWeather(citySearch) {
     fetch(urlOne)
     .then(function(response) {
         return response.json();
-    }).then(function(coordinates) {
-        console.log(coordinates.lat);
-        console.log(coordinates.lon);
+    }).then(function(data) {
+        console.log(data.coord.lat);
+        console.log(data.coord.lon);
+    var lat = data.coord.lat;
+    var lon = data.coord.lon;
+    
 
-    // const urlTwo = "https://api.openweathermap.org/data/3.0/onecall?q=" + citySearch + "&APPID=" + APIKey + "&units=metric";
-    // // fetch the data from the url
-    // fetch(url)
-    //     .then(function(response) {
-    //         return response.json();
-    //     })
-    //     .then(function(weatherData) {
-    //         console.log(weatherData);
-    //         console.log(weatherData.main.temp);
-    //         console.log(weatherData.main.humidity);
-    //         todayweatherEl.classList.remove("d-none");
+    const urlTwo = "https:api.openweathermap.org/data/3.0/onecall?" + lat + "&" + lon + "&appid=" + APIKey + "&units=metric";
+        // fetch the data from the url
+    fetch(urlTwo)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(weatherData) {
+            console.log(weatherData);
+            console.log(weatherData.main.temp);
+            console.log(weatherData.main.humidity);
+            todayweatherEl.classList.remove("d-none");
 
 
-    //     })
+        })
 
 })
 }
