@@ -22,19 +22,15 @@
 // const units = "&units=metric";
 
 
-const citySearch = document.getElementById("citySearch");
-const searchButton = document.getElementById("searchButton");
-const clearButton = document.getElementById("clearButton");
-const selectedCity = document.getElementById("selectedCity");
-
-const date = document.getElementById("date");
-const time = document.getElementById("time");
-
+const cityEl = document.getElementById("searchBarInput");
+const searchEl = document.getElementById("searchButton");
+const clearEl = document.getElementById("clear-history");
+const nameEl = document.getElementById("city-name");
+const currentPicEl = document.getElementById("current-pic");
 const temperature = document.getElementById("temperature");
 const humidity = document.getElementById("humidity");
 const windSpeed = document.getElementById("wind-speed");
 const uvIndex = document.getElementById("uv-index");
-
 const historyEl = document.getElementById("history");
 var fivedayEl = document.getElementById("fiveday-header");
 var todayweatherEl = document.getElementById("today-weather");
@@ -49,54 +45,45 @@ searchButton.addEventListener("click", function(event) {
     // prevent page from refreshing
     event.preventDefault();
     // get the value of the citySearch input
-    const city = citySearch.value;
+    const citySearch = cityEl.value;
     // get the weather of the city
-    getWeather(city);
+    console.log(citySearch);
+    getWeather(citySearch);
     // add the city to the search history
-    addToHistory(city);
+    // citySearch.JSON.parse(localStorage.getItem("search")) || [];
     // clear search content
-    citySearch.value = "";
+    cityEl.value = "";
 
 });
 
 // Clear History Function
-clearButton.addEventListener("click", function(event) {
-    event.preventDefault();
-    localStorage.clear();
-    searchHistory = [];
-    renderserachHistory();
-});
+// clearButton.addEventListener("click", function(event) {
+//     event.preventDefault();
+//     localStorage.clear();
+//     searchHistory = [];
+//     renderserachHistory();
+// });
 
-function renderserachHistory() {
+// function renderserachHistory() {
 
-}
+// }
 
-function getWeather(city) {
-    const url = `https://api.openweathermap.org/data/2.5/weather?q=${city}&appid=${APIKey}&units=metric`;
+function getWeather(citySearch) { 
+    const url = "https://api.openweathermap.org/data/3.0/onecall?q=" + citySearch + "&appid=" + APIKey + "&units=metric";
 
     // fetch the data from the url
     fetch(url)
-        .then(response => response.json())
-        .then(data => {
-            console.log(data);
-            selectedCity.innerHTML = data.name;
-            date.innerHTML = moment().format("dddd, MMMM Do YYYY");
-            time.innerHTML = moment().format("h:mm a");
-            temperature.innerHTML = `${data.main.temp}&deg;C`;
-            humidity.innerHTML = `${data.main.humidity}%`;
-            windSpeed.innerHTML = `${data.wind.speed} km/h`;
-            uvIndex.innerHTML = `${data.main.temp}&deg;C`;
-            getUVIndex(data.coord.lat, data.coord.lon);
-            getWeatherIcon(data.weather[0].id);
-            getWeatherDescription(data.weather[0].id);
-            getWeatherForecast(data.name);
+        .then(function(response) {
+            return response.json();
         })
-        .catch(err => console.log(err));    
+        .then(function(weatherData) {
+            console.log(weatherData);
+            console.log(weatherData.main.temp);
+            console.log(weatherData.main.humidity);
+            todayweatherEl.classList.remove("d-none");
 
-        // let lat = response.data.coord.lat;
-        // let lon = response.data.coord.lon;
 
-    
+        })
+
 }
-
-getWeather("London");
+// getWeather();
