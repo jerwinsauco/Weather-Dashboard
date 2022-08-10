@@ -75,27 +75,35 @@ function getWeather(citySearch) {
     .then(function(response) {
         return response.json();
     }).then(function(data) {
-        console.log(data);
-        // console.log(data.coord.lon);
+        console.log(data.coord.lat);
+        console.log(data.coord.lon);
     var lat = data.coord.lat;
     var lon = data.coord.lon;
     
 
-    // const urlTwo = "https://api.openweathermap.org/data/3.0/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey + "&units=metric";
-    //     // fetch the data from the url
+    const urlTwo = "https://api.openweathermap.org/data/2.5/onecall?lat=" + lat + "&lon=" + lon + "&appid=" + APIKey + "&units=metric";
+        // fetch the data from the url
     
-    // fetch(urlTwo)
-    //     .then(function(response) {
-    //         return response.json();
-    //     })
-    //     .then(function(weatherData) {
-    //         console.log(weatherData);
-    //         console.log(weatherData.main.temp);
-    //         console.log(weatherData.main.humidity);
-    //         todayweatherEl.classList.remove("d-none");
+    fetch(urlTwo)
+        .then(function(response) {
+            return response.json();
+        })
+        .then(function(weatherData) {
+            console.log(weatherData);
+            console.log("UV index is " + weatherData.current.uvi);
+            console.log("Time is now " + weatherData.current.dt);
+            console.log("Temperature is " + weatherData.current.temp);
+            console.log("Humidity is " + weatherData.current.humidity);
+            console.log("Wind speed is " + weatherData.current.wind_speed);
+            console.log("Wind direction is " + weatherData.current.wind_deg);
+            console.log("Visibility is " + weatherData.current.visibility);
+            console.log("Weather description is " + weatherData.current.weather[0].description);
+            console.log("Weather icon is " + weatherData.current.weather[0].icon);
+            
+            todayweatherEl.classList.remove("d-none");
 
 
-    //     })
+        })
 
 })
 }
