@@ -67,23 +67,31 @@ searchButton.addEventListener("click", function(event) {
 // function renderserachHistory() {
 
 // }
-
+// https://api.openweathermap.org/data/2.5/weather?q=
+// https://api.openweathermap.org/data/3.0/onecall?q=
 function getWeather(citySearch) { 
-    const url = "https://api.openweathermap.org/data/3.0/onecall?q=" + citySearch + "&appid=" + APIKey + "&units=metric";
+    const urlOne = "https://api.openweathermap.org/data/2.5/weather?q=" + citySearch + "&APPID=" + APIKey + "&units=metric";
+    fetch(urlOne)
+    .then(function(response) {
+        return response.json();
+    }).then(function(coordinates) {
+        console.log(coordinates.lat);
+        console.log(coordinates.lon);
 
-    // fetch the data from the url
-    fetch(url)
-        .then(function(response) {
-            return response.json();
-        })
-        .then(function(weatherData) {
-            console.log(weatherData);
-            console.log(weatherData.main.temp);
-            console.log(weatherData.main.humidity);
-            todayweatherEl.classList.remove("d-none");
+    // const urlTwo = "https://api.openweathermap.org/data/3.0/onecall?q=" + citySearch + "&APPID=" + APIKey + "&units=metric";
+    // // fetch the data from the url
+    // fetch(url)
+    //     .then(function(response) {
+    //         return response.json();
+    //     })
+    //     .then(function(weatherData) {
+    //         console.log(weatherData);
+    //         console.log(weatherData.main.temp);
+    //         console.log(weatherData.main.humidity);
+    //         todayweatherEl.classList.remove("d-none");
 
 
-        })
+    //     })
 
+})
 }
-// getWeather();
